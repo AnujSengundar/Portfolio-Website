@@ -1,0 +1,47 @@
+.about-section {
+  background-color: #111;
+  color: white;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.about-section h2 {
+  font-size: 2rem;
+  color: #ff6600;
+  margin-bottom: 10px;
+}
+
+.about-section p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 10px auto;
+  line-height: 1.6;
+}
+
+.about-text {
+  text-align: justify;
+}
+
+.skills {
+  margin-top: 20px;
+}
+
+.skills h3 {
+  font-size: 1.5rem;
+  color: #ff6600;
+}
+
+.skills ul {
+  list-style: none;
+  padding: 0;
+}
+
+.skills li {
+  display: inline-block;
+  background: #222;
+  color: #ff6600;
+  padding: 8px 15px;
+  margin: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+}
