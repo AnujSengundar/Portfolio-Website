@@ -1,45 +1,57 @@
+import { motion } from "framer-motion";
+
+const projectVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+};
+
 const Projects = () => {
   return (
     <section className="projects">
-      <h2>Selected Projects</h2>
+      <motion.h2
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        Selected Projects
+      </motion.h2>
 
-      <div className="project-card">
-        <h3>AI-Based Quiz Application</h3>
-        <p>
-          Built an AI-powered quiz app using React, Django, Langchain, and Groq.
-        </p>
-        <a href="https://github.com/AnujSengundar/ai-quiz-app" target="_blank">
-          View Project
-        </a>
-      </div>
-
-      <div className="project-card">
-        <h3>Real-Time Sentiment Analysis</h3>
-        <p>
-          Implemented Kafka + Spark Streaming to analyze Twitter & Reddit
-          sentiment in real-time.
-        </p>
-        <a
-          href="https://github.com/AnujSengundar/sentiment-analysis"
-          target="_blank"
-        >
-          View Project
-        </a>
-      </div>
-
-      <div className="project-card">
-        <h3>Freelancer Recommendation System</h3>
-        <p>
-          Developed an ML-based recommendation system to match freelancers with
-          clients.
-        </p>
-        <a
-          href="https://github.com/AnujSengundar/freelancer-recommendation"
-          target="_blank"
-        >
-          View Project
-        </a>
-      </div>
+      <motion.div
+        className="projects-list"
+        initial="hidden"
+        animate="visible"
+        variants={{ visible: { transition: { staggerChildren: 0.2 } } }}
+      >
+        {[
+          {
+            title: "AI-Based Quiz Platform",
+            description: "AI-powered quiz generator with LangChain & Django.",
+            link: "https://github.com/AnujSengundar/ai-quiz-app",
+          },
+          {
+            title: "Movie Recommender System",
+            description: "Personalized movie recommendations using ML models.",
+            link: "https://github.com/AnujSengundar/movie-recommender",
+          },
+          {
+            title: "Netflix Dashboard",
+            description: "Tableau dashboard for analyzing Netflix trends.",
+            link: "https://github.com/AnujSengundar/netflix-dashboard",
+          },
+        ].map((project, index) => (
+          <motion.div
+            key={index}
+            className="project-card"
+            variants={projectVariants}
+          >
+            <h3>{project.title}</h3>
+            <p>{project.description}</p>
+            <a href={project.link} target="_blank">
+              View Project
+            </a>
+          </motion.div>
+        ))}
+      </motion.div>
     </section>
   );
 };

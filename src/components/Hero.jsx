@@ -1,59 +1,55 @@
+import { motion } from "framer-motion";
+
 const Hero = () => {
   return (
     <section className="hero">
-      <div className="hero-content">
-        <img
-          src="/assets/profile.jpg"
-          alt="Anuj Sengundar"
-          className="profile-pic"
-        />
-        <h1>
-          Designing AI Solutions: <br />{" "}
-          <span className="highlight">Building Data-Driven Systems.</span>
-        </h1>
-        <p>
-          {" "}
-          I am a <strong>Jr Python Developer & Data Scientist</strong>
-        </p>
-        <p>
-          With Experience In
-          <strong>
-            {" "}
-            Python, Django, React, NLP models, and AI-powered solutions.
-          </strong>
-        </p>
-        <p>
-          Passionate about{" "}
-          <strong>machine learning & backend development</strong>.
-        </p>
+      <motion.h1
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        Designing AI Solutions & Building Data-Driven Systems
+      </motion.h1>
 
-        <div className="social-links">
-          <a
-            href="https://github.com/AnujSengundar"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://www.linkedin.com/in/anuj-sengundar-7101b2228/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn
-          </a>
-          <a href="mailto:anujsengundar@gmail.com">Email</a>
-        </div>
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 0.8 }}
+      >
+        Jr Python Developer | AI & Data Science Enthusiast
+      </motion.p>
 
-        <div className="cta-buttons">
-          <a href="src/assets/resume.pdf" className="btn">
-            Download Resume
-          </a>
-          <a href="#contact" className="btn btn-outline">
-            Say Hello 👋
-          </a>
-        </div>
-      </div>
+      <motion.div
+        className="social-links"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 0.8 }}
+      >
+        <a href="https://github.com/AnujSengundar" target="_blank">
+          GitHub
+        </a>
+        <a
+          href="https://www.linkedin.com/in/anuj-sengundar-7101b2228/"
+          target="_blank"
+        >
+          LinkedIn
+        </a>
+        <a href="mailto:sengundaranuj@gmail.com">Email</a>
+      </motion.div>
+
+      <motion.div
+        className="cta-buttons"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1.5, duration: 0.8 }}
+      >
+        <a href="/assets/AnujSengundarResume.pdf" className="btn">
+          Download Resume
+        </a>
+        <a href="#contact" className="btn btn-outline">
+          Say Hello 👋
+        </a>
+      </motion.div>
     </section>
   );
 };
