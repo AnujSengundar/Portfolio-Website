@@ -1,61 +1,79 @@
 .work-experience {
   padding: 60px 20px;
-  background-color: #0d0d0d;
+  background: linear-gradient(180deg, #0d0d0d, #121212);
   color: white;
   text-align: center;
 }
 
 .work-experience h2 {
-  font-size: 2.5rem;
-  margin-bottom: 30px;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  font-weight: 650;
+  color: #f04e31;
+  letter-spacing: 0.5px;
 }
 
 .experience-list {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
 .experience-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #1a1a1a;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  transition: 0.3s;
+  background: rgba(26, 26, 26, 0.95);
+  padding: 25px 30px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 15px rgba(240, 78, 49, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .experience-card:hover {
-  transform: scale(1.05);
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(240, 78, 49, 0.25);
 }
 
 .job-info h3 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 5px;
 }
 
 .job-info p {
   font-size: 1rem;
-  opacity: 0.8;
+  line-height: 1.6;
+  opacity: 0.85;
 }
 
 .duration {
-  font-size: 1rem;
+  font-size: 0.95rem;
+  font-weight: 500;
   color: #f04e31;
+  margin-bottom: 10px;
+  display: block;
 }
 
-/* Responsive */
+strong {
+  color: #ffd166;
+  font-weight: 600;
+}
+
+/* Mobile responsiveness */
 @media (max-width: 768px) {
   .work-experience h2 {
     font-size: 2rem;
   }
 
   .experience-card {
-    flex-direction: column;
-    align-items: flex-start;
+    padding: 20px;
   }
 
-  .duration {
-    margin-top: 10px;
+  .job-info h3 {
+    font-size: 1.4rem;
+  }
+
+  .job-info p {
+    font-size: 0.95rem;
   }
 }

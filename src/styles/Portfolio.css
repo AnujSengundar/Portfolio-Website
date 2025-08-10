@@ -1,0 +1,20 @@
+/* Example: src/index.css or global.css */
+.section {
+  padding: 3rem 1rem;
+}
+.grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.tech {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}

@@ -1,62 +1,75 @@
 import { motion } from "framer-motion";
 
+const container = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.12 },
+  },
+};
+const itemUp = {
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+};
+
 const Hero = () => {
   return (
-    <section className="hero">
-      <motion.h1
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        Anuj Sengundar
-      </motion.h1>
-
-      <motion.h1
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        Designing AI Solutions & Building Data-Driven Systems
-      </motion.h1>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.8 }}
-      >
-        Jr Python Developer | AI & Data Science Enthusiast
-      </motion.p>
-
+    <section className="hero" aria-label="Hero section">
       <motion.div
-        className="social-links"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.8 }}
+        className="hero-inner"
+        variants={container}
+        initial="hidden"
+        animate="visible"
+        whileHover={{ scale: 1.01 }}
       >
-        <a href="https://github.com/AnujSengundar" target="_blank">
-          GitHub
-        </a>
-        <a
-          href="https://www.linkedin.com/in/anuj-sengundar-7101b2228/"
-          target="_blank"
-        >
-          LinkedIn
-        </a>
-        <a href="mailto:sengundaranuj@gmail.com">Email</a>
-      </motion.div>
+        {/* Name */}
+        <motion.h1 variants={itemUp}>Anuj Sengundar</motion.h1>
 
-      <motion.div
-        className="cta-buttons"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
-      >
-        <a href="/assets/AnujSengundarResume.pdf" className="btn">
-          Download Resume
-        </a>
-        <a href="#contact" className="btn btn-outline">
-          Say Hello 👋
-        </a>
+        <motion.h2 variants={itemUp}>
+          Architecting AI Solutions • Engineering Data-Driven Backends
+        </motion.h2>
+
+        <motion.p variants={itemUp} className="intro-text">
+          I’m <strong>Anuj Sengundar</strong>, a <strong>Backend</strong> &{" "}
+          <strong>Data Specialist</strong> who builds scalable, production-ready
+          systems. My work spans from robust ETL pipelines to intelligent,
+          language-driven AI applications. I work with tools like{" "}
+          <strong>LangChain</strong> for orchestration,{" "}
+          <strong>LangGraph</strong> for stateful agent workflows,{" "}
+          <strong>Ollama</strong> for local LLM hosting, and frameworks such as{" "}
+          <strong>Django</strong> and <strong>FastAPI</strong>. My goal is to
+          deliver high-performance AI solutions that are reliable, secure, and
+          ready for real-world use — from data ingestion all the way to
+          inference.
+        </motion.p>
+
+        {/* Social links */}
+        <motion.div className="social-links" variants={itemUp}>
+          <a
+            href="https://github.com/AnujSengundar"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://www.linkedin.com/in/anuj-sengundar-7101b2228/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+          <a href="mailto:sengundaranuj@gmail.com">Email</a>
+        </motion.div>
+
+        {/* CTAs */}
+        <motion.div className="cta-buttons" variants={itemUp}>
+          <a href="/assets/AnujSengundarResume.pdf" className="btn" download>
+            Download Resume
+          </a>
+          <a href="#contact" className="btn btn-outline">
+            Say Hello 👋
+          </a>
+        </motion.div>
       </motion.div>
     </section>
   );

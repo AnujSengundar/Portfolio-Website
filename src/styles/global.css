@@ -1,10 +1,21 @@
-/* Global Dark Theme */
+/* ===========================
+   Global Dark Theme
+=========================== */
 body {
   background-color: #0f0f0f;
   color: #fff;
   font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
+/* ===========================
+   Hero Section
+=========================== */
 .hero {
   text-align: center;
   padding: 4rem 1rem;
@@ -28,17 +39,26 @@ body {
 .social-links a {
   color: #ff7f50;
   margin: 0 10px;
-  text-decoration: none;
 }
 
+/* ===========================
+   Buttons
+=========================== */
 .btn {
   display: inline-block;
   padding: 10px 20px;
   background-color: #ff7f50;
   color: #fff;
-  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
   border-radius: 5px;
   margin: 10px;
+  transition: background 0.25s ease;
+}
+
+.btn:hover {
+  background-color: #ff5a1f;
 }
 
 .btn-outline {
@@ -46,75 +66,111 @@ body {
   background: none;
 }
 
-.projects,
-.work-experience {
-  padding: 3rem;
-}
-
-.project-card,
-.experience-card {
-  background: #1a1a1a;
-  padding: 1rem;
-  border-radius: 10px;
-  margin: 1rem 0;
-}
-/* Global Dark Theme */
-body {
-  background-color: #0f0f0f;
-  color: #fff;
-  font-family: "Inter", sans-serif;
-}
-
-.hero {
-  text-align: center;
-  padding: 4rem 1rem;
-}
-
-.hero .profile-pic {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-}
-
-.hero h1 {
-  font-size: 2rem;
-  font-weight: bold;
-}
-
-.hero .highlight {
-  color: #ff7f50;
-}
-
-.social-links a {
-  color: #ff7f50;
-  margin: 0 10px;
-  text-decoration: none;
-}
-
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
+.btn-outline:hover {
   background-color: #ff7f50;
   color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-  margin: 10px;
 }
 
-.btn-outline {
-  border: 2px solid #ff7f50;
-  background: none;
+/* ===========================
+   Filter Buttons
+=========================== */
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 2rem 0;
 }
 
+.filter-button {
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 1px solid #ff7f50;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.filter-button:hover {
+  background-color: #ff7f50;
+  color: #fff;
+}
+
+.filter-button.active {
+  background-color: #ff7f50;
+  color: #fff;
+}
+
+/* ===========================
+   Sections
+=========================== */
 .projects,
 .work-experience {
   padding: 3rem;
 }
 
-.project-card,
-.experience-card {
+/* ===========================
+   Project Cards Grid
+=========================== */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ===========================
+   Individual Project Card
+=========================== */
+.project-card {
   background: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(255, 127, 80, 0.3);
+}
+
+.project-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.project-card-content {
   padding: 1rem;
-  border-radius: 10px;
-  margin: 1rem 0;
+}
+
+.project-card-content h3 {
+  color: #ff7f50;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.project-card-content p {
+  font-size: 0.9rem;
+  color: #ccc;
+  line-height: 1.4;
+}
+
+/* ===========================
+   Project Tags
+=========================== */
+.project-tags {
+  margin-top: 0.75rem;
+}
+
+.project-tag {
+  display: inline-block;
+  background-color: rgba(255, 127, 80, 0.15);
+  color: #ff7f50;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  margin-right: 5px;
 }
