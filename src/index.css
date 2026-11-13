@@ -38,3 +38,40 @@
 .site-footer{padding:2rem max(6vw,28px);font-family:monospace}
 @media(max-width:900px){.header-caption{display:none}.hero-main{grid-template-columns:1fr 200px;gap:2rem}}
 @media(max-width:650px){.section-shell{padding:75px 24px}.site-header{position:sticky;top:0;left:auto;transform:none;width:100%;height:66px;min-height:0;padding:0 24px;border-radius:0}.nav-links{top:66px;left:0;right:0;border-radius:0;border-left:0;border-right:0;padding:1rem 24px 1.5rem}.nav-links>a{padding:1rem 0}.nav-contact{border:0}.hero{min-height:auto;padding-top:25px;padding-bottom:25px}.hero-main{display:block;padding:85px 0 65px}.hero h1{font-size:clamp(3.6rem,14vw,5.5rem)}.hero-aside{margin-top:4rem}.asterisk{display:block;font-size:3rem;margin-bottom:1.5rem}.section-kicker{margin-bottom:50px}.project-card{min-height:0;padding:1.5rem}.project-content p{min-height:0}.contact-bottom{margin-top:3rem}.site-footer{padding:2rem 24px}}
+/* Muted red and green accents over the dark theme. */
+.hero{background:radial-gradient(ellipse 75% 50% at 38% 110%,#713b40 0%,#512d37 28%,transparent 72%),radial-gradient(ellipse 45% 45% at 65% 100%,#386e58aa,transparent 75%),radial-gradient(ellipse 55% 45% at 50% 0%,#482c3970,transparent 75%),#0b1110}
+.about{background:radial-gradient(ellipse at 80% 45%,#51333973,transparent 55%),#0d1412}
+.projects{background:radial-gradient(ellipse at 90% 20%,#54383b43,transparent 44%),linear-gradient(135deg,#101d18,#0a1411 70%)}
+.experience{background:#0b1311}
+.toolkit{background:radial-gradient(ellipse at 20% 80%,#58383b43,transparent 50%),#101b17}
+.contact{background:radial-gradient(ellipse at 80% 80%,#713d42 0%,transparent 55%),radial-gradient(ellipse at 15% 100%,#315d49 0%,transparent 55%),#101916}
+.brand span,.nav-contact svg,.timeline-company{color:#a7c9aa}
+.eyebrow span{background:#a8c9a5;box-shadow:0 0 15px #80a989}
+.hero h1 em,.section-heading h2 em,.about h2 em,.toolkit h2 em,.contact h2 em{color:#b6cbb5}
+.hero-aside a,.hero-bottom a,.github-link{color:#b7d3b7}
+.nav-links a:hover,.site-footer a:hover{color:#c8ddc4}
+.contact-email{border-color:#b2cdb0}.contact-email:hover{color:#c8ddc4}
+.project-card:hover{border-color:#7b5c59}
+.project-art>span{color:#b9c8ba}.art-orbit{border-color:#506a5b}.art-orbit-two{border-color:#714e4c}
+a:focus-visible,button:focus-visible{outline-color:#b7d3b7}
+/* Warm orange-red accents and a simpler, personal navigation. */
+.hero{background:radial-gradient(ellipse 75% 50% at 38% 110%,#79351f 0%,#4c2521 32%,transparent 72%),radial-gradient(ellipse 45% 45% at 70% 100%,#9a3d1e88,transparent 75%),radial-gradient(ellipse 55% 45% at 50% 0%,#4b231e66,transparent 75%),#120d0d}
+.about{background:radial-gradient(ellipse at 80% 45%,#51282060,transparent 55%),#15100f}
+.projects{background:radial-gradient(ellipse at 90% 20%,#572b2045,transparent 44%),linear-gradient(135deg,#1c1311,#120e0d 70%)}
+.experience{background:#130e0d}
+.toolkit{background:radial-gradient(ellipse at 20% 80%,#55291e45,transparent 50%),#19110f}
+.contact{background:radial-gradient(ellipse at 80% 80%,#79381f 0%,transparent 55%),radial-gradient(ellipse at 15% 100%,#8b3320 0%,transparent 55%),#1b100e}
+.site-header{background:rgba(19,14,13,.94);border-bottom:1px solid #49302b;box-shadow:none}
+.brand{letter-spacing:-.06em}.brand span{color:#f18a5a}
+.header-caption{color:#ae9b95}
+.nav-links{gap:2.2rem}.nav-links>a:not(.nav-contact){color:#d7c9c4;position:relative;transition:color .2s ease}.nav-links>a:not(.nav-contact)::after{content:'';position:absolute;left:0;right:100%;bottom:-8px;height:2px;background:#ef8352;transition:right .2s ease}.nav-links>a:not(.nav-contact):hover{color:#fff}.nav-links>a:not(.nav-contact):hover::after{right:0}
+.nav-contact{border:0;border-radius:0;background:none;padding:.55rem 0;color:#f29a70;border-bottom:1px solid #ad5a40}.nav-contact svg,.timeline-company{color:#f29a70}.nav-contact:hover{background:none;border-color:#f29a70;color:#fff}
+.eyebrow span{background:#ed8358;box-shadow:0 0 15px #d16643}
+.hero h1 em,.section-heading h2 em,.about h2 em,.toolkit h2 em,.contact h2 em{color:#edaa8d}
+.hero-aside a,.hero-bottom a,.github-link{color:#f2a17b}.hero-aside a:hover,.hero-bottom a:hover,.github-link:hover,.site-footer a:hover{color:#ffcfb8}
+.project-card,.skill{background-color:#1b1412;border-color:#4a3029}.project-card:hover{border-color:#a95d46}.project-content,.timeline,.timeline-item,.timeline-item:last-child,.skill,.hero-topline,.section-kicker,.hero-bottom,.about-meta{border-color:#4a3029}
+.project-art>span{color:#c9a39a}.art-orbit{border-color:#805044}.art-orbit-two{border-color:#5d3931}.tags span{background:#291a16;border-color:#5d3b31;color:#dec3b8}
+.contact-email{border-color:#ef966d}.contact-email:hover{color:#ffb795}.site-footer{background:#120d0c;color:#b6a39b}
+a:focus-visible,button:focus-visible{outline-color:#f2a17b}
+@media(max-width:650px){.nav-links{background:#1b1412;border-color:#4a3029}.nav-contact{justify-content:flex-start;gap:.6rem}}
+.nav-contact{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;padding:0;border:1px solid #704639;border-radius:50%;color:#f29a70;transition:background .2s ease,border-color .2s ease}.nav-contact svg{font-size:1.1rem}.nav-contact:hover{background:#382019;border-color:#f29a70}@media(max-width:650px){.nav-links .nav-contact{padding:0;margin-top:.5rem;justify-content:center;border:1px solid #704639}}
