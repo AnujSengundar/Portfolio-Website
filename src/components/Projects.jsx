@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion as Motion, AnimatePresence } from "framer-motion";
 import { projects } from "../data/project";
 
 const categories = [
@@ -27,14 +27,14 @@ const Projects = () => {
   return (
     <section className="projects-section px-6 py-12">
       {/* Heading */}
-      <motion.h2
+      <Motion.h2
         className="text-3xl font-bold text-center mb-8 text-white"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
         Selected Projects
-      </motion.h2>
+      </Motion.h2>
 
       {/* Filter Buttons */}
       <div className="filter-buttons flex flex-wrap justify-center gap-3 mb-10">
@@ -54,7 +54,7 @@ const Projects = () => {
       </div>
 
       {/* Project Cards Grid */}
-      <motion.div
+      <Motion.div
         className="projects-grid"
         initial="hidden"
         animate="visible"
@@ -62,7 +62,7 @@ const Projects = () => {
       >
         <AnimatePresence>
           {filteredProjects.map((project, index) => (
-            <motion.div
+            <Motion.div
               key={index}
               className="project-card"
               variants={cardVariants}
@@ -91,10 +91,10 @@ const Projects = () => {
                   View Project →
                 </a>
               </div>
-            </motion.div>
+            </Motion.div>
           ))}
         </AnimatePresence>
-      </motion.div>
+      </Motion.div>
     </section>
   );
 };

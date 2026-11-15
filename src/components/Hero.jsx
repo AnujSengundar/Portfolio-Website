@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 
 const container = {
   hidden: {},
@@ -14,7 +14,7 @@ const itemUp = {
 const Hero = () => {
   return (
     <section className="hero" aria-label="Hero section">
-      <motion.div
+      <Motion.div
         className="hero-inner"
         variants={container}
         initial="hidden"
@@ -22,13 +22,13 @@ const Hero = () => {
         whileHover={{ scale: 1.01 }}
       >
         {/* Name */}
-        <motion.h1 variants={itemUp}>Anuj Sengundar</motion.h1>
+        <Motion.h1 variants={itemUp}>Anuj Sengundar</Motion.h1>
 
-        <motion.h2 variants={itemUp}>
+        <Motion.h2 variants={itemUp}>
           Architecting AI Solutions • Engineering Data-Driven Backends
-        </motion.h2>
+        </Motion.h2>
 
-        <motion.p variants={itemUp} className="intro-text">
+        <Motion.p variants={itemUp} className="intro-text">
           I’m <strong>Anuj Sengundar</strong>, a <strong>Backend</strong> &{" "}
           <strong>Data Specialist</strong> who builds scalable, production-ready
           systems. My work spans from robust ETL pipelines to intelligent,
@@ -40,10 +40,10 @@ const Hero = () => {
           deliver high-performance AI solutions that are reliable, secure, and
           ready for real-world use — from data ingestion all the way to
           inference.
-        </motion.p>
+        </Motion.p>
 
         {/* Social links */}
-        <motion.div className="social-links" variants={itemUp}>
+        <Motion.div className="social-links" variants={itemUp}>
           <a
             href="https://github.com/AnujSengundar"
             target="_blank"
@@ -59,18 +59,18 @@ const Hero = () => {
             LinkedIn
           </a>
           <a href="mailto:sengundaranuj@gmail.com">Email</a>
-        </motion.div>
+        </Motion.div>
 
         {/* CTAs */}
-        <motion.div className="cta-buttons" variants={itemUp}>
+        <Motion.div className="cta-buttons" variants={itemUp}>
           <a href="/assets/AnujSengundarResume.pdf" className="btn" download>
             Download Resume
           </a>
           <a href="#contact" className="btn btn-outline">
             Say Hello 👋
           </a>
-        </motion.div>
-      </motion.div>
+        </Motion.div>
+      </Motion.div>
     </section>
   );
 };
