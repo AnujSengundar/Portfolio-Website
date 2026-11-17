@@ -36,3 +36,17 @@ test('quote metadata supports linked sources and interest filters', () => {
   for (const topic of quoteTopics.slice(1)) assert.ok(selectQuote('2026-11-17', topic, { seen: [], days: {} }).topics.includes(topic));
   assert.equal(localDay(new Date(2026, 0, 2)), '2026-01-02');
 });
+
+test('the collection supplies at least two years of non-repeating quotes', () => {
+  assert.ok(quotes.length >= 731);
+  const seen = new Set();
+  let history = { seen: [], current: null };
+  for (let day = 0; day < 731; day++) {
+    const next = rotateQuote(history, 1000 + day * QUOTE_INTERVAL);
+    assert.ok(next.quote, `No quote on day ${day + 1}`);
+    assert.ok(!seen.has(next.quote.id), `Repeated quote on day ${day + 1}`);
+    seen.add(next.quote.id);
+    history = next.history;
+  }
+  assert.equal(history.seen.length, 731);
+});

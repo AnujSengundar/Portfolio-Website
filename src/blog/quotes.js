@@ -1,5 +1,7 @@
-// Each entry links to the exact edition or translation used for the quotation.
-export const quotes = [
+import quoteCollection from './quoteCollection.js';
+
+// Keep the original IDs so existing browser histories continue to work.
+const originalQuotes = [
   { id: 'dhammapada-5', text: 'For hatred does not cease by hatred at any time: hatred ceases by love, this is an old rule.', author: 'The Dhammapada', source: 'Verse 5, translated by F. Max Müller', url: 'https://www.gutenberg.org/files/2017/2017-h/2017-h.htm', topics: ['Religion', 'Life'] },
   { id: 'dhammapada-236', text: 'Make thyself an island, work hard, be wise!', author: 'The Dhammapada', source: 'Verse 236, translated by F. Max Müller', url: 'https://www.gutenberg.org/files/2017/2017-h/2017-h.htm', topics: ['Religion', 'Growth'] },
   { id: 'dhammapada-43', text: 'Not a mother, not a father will do so much, nor any other relative; a well-directed mind will do us greater service.', author: 'The Dhammapada', source: 'Verse 43, translated by F. Max Müller', url: 'https://www.gutenberg.org/files/2017/2017-h/2017-h.htm', topics: ['Religion', 'Learning'] },
@@ -12,6 +14,8 @@ export const quotes = [
   { id: 'whitman-multitudes', text: 'I am large, I contain multitudes.', author: 'Walt Whitman', source: 'Song of Myself, section 51', url: 'https://www.gutenberg.org/files/1322/1322-h/1322-h.htm', topics: ['Books', 'Life'] },
   { id: 'hound-obvious', text: 'The world is full of obvious things which nobody by any chance ever observes.', author: 'Arthur Conan Doyle', source: 'The Hound of the Baskervilles', url: 'https://www.gutenberg.org/cache/epub/3070/pg3070-images.html', topics: ['Books', 'Learning'] },
 ];
+
+export const quotes = [...originalQuotes, ...quoteCollection];
 
 export const quoteTopics = ['All', 'Books', 'Life', 'Growth', 'Learning', 'Religion', 'Mythology'];
 
