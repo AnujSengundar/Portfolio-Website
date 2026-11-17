@@ -6,4 +6,16 @@
 .blog-prose .blog-citation a{font-weight:600;text-decoration:none}
 .blog-prose .blog-citation a:hover,.blog-prose .blog-citation a:focus-visible{text-decoration:underline}
 body:has(.blog-shell){background:#120d0d}
+.daily-quote{position:relative;overflow:hidden;margin:3rem 0 3.5rem;padding:clamp(1.5rem,4vw,3rem);border:1px solid #674638;border-radius:16px;background:linear-gradient(125deg,#281a15,#1b1412 70%)}
+.daily-quote-heading{display:flex;justify-content:space-between;align-items:start;gap:1rem}.daily-quote-heading .blog-label{margin:0 0 .8rem}.daily-quote-heading h2{margin:0;font-size:clamp(1.4rem,2.5vw,2rem);letter-spacing:-.04em}.daily-quote-heading h2 span{color:#efa17c}.daily-quote-mark{font-family:Georgia,serif;font-size:6rem;line-height:.8;color:#b96f50;opacity:.45}.daily-quote-content{margin:1.8rem 0 2rem;max-width:850px}.daily-quote-content blockquote{margin:0;color:#f3e4dc;font:italic clamp(1.35rem,2.8vw,2.1rem)/1.45 Georgia,serif}.daily-quote-content figcaption{margin-top:1.2rem;color:#e5ae92;font-size:.88rem}.daily-quote-content figcaption span{color:#bda69a}.daily-quote-controls{display:flex;align-items:center;flex-wrap:wrap;gap:.75rem;padding-top:1.3rem;border-top:1px solid #5a3c30}.daily-quote-controls label{color:#dac4b8;font-size:.82rem;font-weight:600}.daily-quote-controls select{max-width:100%;border:1px solid #78503e;border-radius:7px;background:#1a110e;color:#f4ded2;font:inherit;font-size:.85rem;padding:.55rem .7rem}.daily-quote-controls select:focus-visible{outline:2px solid #efa17c;outline-offset:3px}.daily-quote-controls p{margin:0 0 0 auto;color:#bca499;font-size:.8rem}.daily-quote-mark{user-select:none}
+@media(max-width:650px){.daily-quote{margin:2.5rem 0}.daily-quote-mark{font-size:4rem}.daily-quote-controls p{width:100%;margin:.2rem 0 0}}
 .email-approval{max-width:850px;margin-inline:auto}.email-approval h2{font-size:1.8rem;line-height:1.2;margin:.7rem 0 1rem}.email-approval-name{font-size:1.15rem;font-weight:600}.email-approval-actions{display:flex;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:1.5rem}.email-approval-actions a.blog-button{display:inline-block;text-decoration:none}.email-approval-preview{margin-top:2rem;padding-top:1.5rem;border-top:1px solid #53392b}.email-approval-preview summary{cursor:pointer;font-weight:600}.email-approval-preview .blog-article{margin-top:2rem}
+.blog-introduction{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,340px);align-items:center;gap:clamp(2rem,5vw,5rem)}
+.blog-introduction .daily-quote{margin:0;padding:1.5rem;border-radius:12px;align-self:center}
+.daily-quote>.blog-label{margin:0 0 1rem}
+.daily-quote .daily-quote-content{margin:0}
+.daily-quote .daily-quote-content blockquote{font-size:1.15rem;line-height:1.55}
+.daily-quote .daily-quote-content figcaption{font-size:.78rem;line-height:1.6;margin-top:1rem}
+.daily-quote .daily-quote-content figcaption a{color:#bca499;font-size:.75rem;text-decoration:underline;text-underline-offset:3px}
+.daily-quote-notice{font-size:.75rem;margin-bottom:0}
+@media(max-width:760px){.blog-introduction{grid-template-columns:1fr;gap:1.5rem}.blog-introduction .daily-quote{max-width:480px;width:100%}}

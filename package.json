@@ -9,7 +9,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "node --test tests/blog.test.js"
+    "test": "node --test tests/blog.test.js tests/quotes.test.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.109.0",

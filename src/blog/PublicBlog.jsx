@@ -4,6 +4,7 @@ import { FiArrowUpRight, FiArrowLeft, FiMessageSquare } from 'react-icons/fi';
 import { CATEGORIES } from '../../shared/blog';
 import { api, assetUrl } from './client';
 import Article from './Article';
+import DailyQuote from './DailyQuote';
 
 export function BlogHeader() {
   return <header className="site-header"><Link className="brand" to="/" aria-label="Anuj Sengundar home">AS<span>.</span></Link><span className="header-caption">NOTES & INTERESTS</span><nav className="blog-nav" aria-label="Blog navigation"><Link to="/">Portfolio</Link><Link to="/blog">Blog</Link><a className="nav-contact" href="/#contact" aria-label="Go to contact section"><FiMessageSquare /></a></nav></header>;
@@ -31,7 +32,7 @@ export function RecentPosts() {
 export function BlogIndex() {
   const {posts,error,loading}=usePosts();const [category,setCategory]=useState('All');
   useEffect(()=>{document.title='Blog — Anuj Sengundar';},[]);
-  return <><BlogHeader /><main className="blog-shell"><p className="blog-label">THE BLOG</p><h1 className="blog-page-title">Notes, ideas,<br /><em>and interests.</em></h1><p className="blog-intro">A space for technology, stories, music, and everything in between.</p>
+  return <><BlogHeader /><main className="blog-shell"><div className="blog-introduction"><div><p className="blog-label">THE BLOG</p><h1 className="blog-page-title">Notes, ideas,<br /><em>and interests.</em></h1><p className="blog-intro">A space for technology, stories, music, and everything in between.</p></div><DailyQuote /></div>
     <div className="blog-filters" aria-label="Filter articles">{['All',...CATEGORIES].map(c=><button type="button" aria-pressed={category===c} key={c} onClick={()=>setCategory(c)}>{c}</button>)}</div>
     {loading?<p role="status">Loading articles…</p>:error?<p role="alert">{error}</p>:posts.filter(p=>category==='All'||p.content.category===category).length?<Cards posts={posts.filter(p=>category==='All'||p.content.category===category)} />:<p className="blog-empty">No articles here yet. Check back soon.</p>}
   </main></>;
