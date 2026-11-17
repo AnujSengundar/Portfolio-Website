@@ -50,3 +50,30 @@ test('the collection supplies at least two years of non-repeating quotes', () =>
   }
   assert.equal(history.seen.length, 731);
 });
+
+test('rotation excludes Dhammapada, features science and comics, and varies authors', () => {
+  let history = { seen: [], current: null };
+  let featuredCount = 0;
+  let previousAuthor;
+  assert.ok(quotes.every(quote => quote.author !== 'The Dhammapada' && !quote.id.startsWith('dhammapada-')));
+  for (let day = 0; day < 100; day++) {
+    const next = rotateQuote(history, 1000 + day * QUOTE_INTERVAL);
+    const featured = next.quote.topics.includes('Science') || next.quote.topics.includes('Comics');
+    if (featured) featuredCount++;
+    const seen = new Set(history.seen);
+    const alternate = quotes.some(quote => !seen.has(quote.id) && quote.author !== previousAuthor &&
+      (quote.topics.includes('Science') || quote.topics.includes('Comics')) === featured);
+    if (alternate) assert.notEqual(next.quote.author, previousAuthor);
+    previousAuthor = next.quote.author;
+    history = next.history;
+  }
+  assert.equal(featuredCount, 20);
+  assert.ok(quotes.some(quote => quote.topics.includes('Comics')));
+});
+
+test('a previously displayed Dhammapada quote is replaced without losing seen history', () => {
+  const history = { seen: ['dhammapada-5'], current: { id: 'dhammapada-5', since: 1000 } };
+  const next = rotateQuote(history, 2000);
+  assert.notEqual(next.quote.id, 'dhammapada-5');
+  assert.ok(next.history.seen.includes('dhammapada-5'));
+});
