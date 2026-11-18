@@ -19,3 +19,4 @@ body:has(.blog-shell){background:#120d0d}
 .daily-quote .daily-quote-content figcaption a{color:#bca499;font-size:.75rem;text-decoration:underline;text-underline-offset:3px}
 .daily-quote-notice{font-size:.75rem;margin-bottom:0}
 @media(max-width:760px){.blog-introduction{grid-template-columns:1fr;gap:1.5rem}.blog-introduction .daily-quote{max-width:480px;width:100%}}
+.draft-fields{border:0;padding:0;margin:0;min-width:0}.draft-source{margin-bottom:1rem}.draft-source summary{cursor:pointer;color:#b7a79f;font-size:.85rem}

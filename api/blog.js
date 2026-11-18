@@ -1,13 +1,13 @@
 import { randomUUID, timingSafeEqual, createHash } from 'node:crypto';
 import { database, authorize, result } from '../server/db.js';
 import { publicConfig, env } from '../server/config.js';
-import { generate } from '../server/generate.js';
+import { generate, regenerateDraft } from '../server/generate.js';
 import { sendReview } from '../server/email.js';
 import { downloadImage, imageCandidate, imageMime, MAX_IMAGE_BYTES, openverse } from '../server/images.js';
 import { validateTopic, validateContent, slugify, UUID, youtubeUrl } from '../shared/blog.js';
 
 const GET_ACTIONS = new Set(['config','posts','post','asset','dashboard','images','cron']);
-const POST_ACTIONS = new Set(['topics','generate','save','email','publish','unpublish','schedule','upload','import-image','remove-topic']);
+const POST_ACTIONS = new Set(['topics','generate','regenerate','save','email','publish','unpublish','schedule','upload','import-image','remove-topic']);
 export function methodAllowed(action, method) {
   return method === 'GET' ? GET_ACTIONS.has(action) : method === 'POST' && POST_ACTIONS.has(action);
 }
@@ -101,6 +101,14 @@ export default async function handler(req,res) {
       return res.status(201).json(await result(db.from('blog_topics').upsert(unique,{onConflict:'dedupe_key',ignoreDuplicates:true}).select()));
     }
     if(action==='generate') return res.status(200).json(await generate(db,requireId(b.id)));
+    if(action==='regenerate') {
+      const draft=await result(db.from('blog_drafts').select('id,topic_id,revision,content').eq('id',requireId(b.id)).single());
+      if(draft.revision!==b.revision) throw Object.assign(new Error('This revision is outdated. Reload before regenerating.'),{status:409});
+      const content=validateContent(b.content);
+      await contentAssets(db,content);
+      const extracts=Array.isArray(b.content.sources)?b.content.sources.slice(0,30).map(source=>source.extract):[];
+      return res.status(200).json(await regenerateDraft(db,draft,content,extracts));
+    }
     if(action==='save') {
       const content=validateContent(b.content); await contentAssets(db,content);
       return res.status(200).json(await result(db.rpc('blog_save_draft',{p_id:requireId(b.id),p_revision:b.revision,p_content:content})));

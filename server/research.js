@@ -51,17 +51,51 @@ export async function checkResearchAllowance(required = SEARCH_COUNT) {
   return verifyFreeResearchUsage(await tavily('usage'), required);
 }
 
-export function researchSource(item) {
-  const clean = safeUrl(item?.url);
-  if (!clean || typeof item.content !== 'string' || item.content.trim().length < 80) return null;
+function researchUrl(value) {
+  const clean = safeUrl(value);
+  if (!clean) return null;
   const url = new URL(clean);
   const host = url.hostname;
   // Sources become clickable citations, never arbitrary server-side fetch targets.
   if (url.port || !host.includes('.') || /\.(?:local|localhost|internal|test)$/i.test(host) ||
       (isIP(host) && !isPublicAddress(host)) || host.startsWith('[')) return null;
   url.hash = '';
-  return { url: url.href, title: String(item.title || host).slice(0, 240),
+  return url.href;
+}
+
+export function researchSource(item) {
+  const url = researchUrl(item?.url);
+  if (!url || typeof item.content !== 'string' || item.content.trim().length < 80) return null;
+  return { url, title: String(item.title || new URL(url).hostname).slice(0, 240),
     excerpt: item.content.trim().slice(0, 3500) };
+}
+
+export async function researchDraft(sources, extracts) {
+  const evidenceByUrl = new Map();
+  for (const [index, source] of sources.entries()) {
+    const url = researchUrl(source.url);
+    if (!url) throw new Error('Use public HTTPS links for regeneration sources.');
+    if (evidenceByUrl.has(url)) throw new Error('Remove duplicate source links before regenerating.');
+    evidenceByUrl.set(url, { ...source, excerpt: String(extracts[index] || '').trim().slice(0, 3500) });
+  }
+  if (evidenceByUrl.size < 2) throw new Error('Add at least two distinct sources before regenerating.');
+  const pending = [...evidenceByUrl].filter(([, source]) => !source.excerpt).map(([url]) => url);
+  for (let index = 0; index < pending.length; index += 20) {
+    const urls = pending.slice(index, index + 20);
+    await checkResearchAllowance(Math.ceil(urls.length / 5));
+    const data = await tavily('extract', { urls, extract_depth: 'basic', format: 'text', timeout: 15 });
+    for (const item of (Array.isArray(data.results) ? data.results : [])) {
+      const source = researchSource({ url: item.url, content: item.raw_content });
+      const requested = source && urls.includes(source.url) && evidenceByUrl.get(source.url);
+      if (requested) requested.excerpt = source.excerpt;
+    }
+  }
+  const missing = [...evidenceByUrl.values()].filter(source => !source.excerpt);
+  if (missing.length) {
+    throw new Error(`Could not read these sources. Paste an extract or replace the link: ${missing.map(source => source.title).join(', ')}`);
+  }
+  const evidence = [...evidenceByUrl.values()].map((source, index) => ({ id: index + 1, ...source }));
+  return { searchedAt: new Date().toISOString(), sources, evidence };
 }
 
 export async function researchTopic(topic) {

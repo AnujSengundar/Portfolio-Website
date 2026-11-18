@@ -7,7 +7,7 @@ import {authorize} from '../server/db.js';
 import {isPublicAddress,imageMime} from '../server/images.js';
 import {methodAllowed} from '../api/blog.js';
 import {reviewMessage} from '../server/email.js';
-import {gemini,generate,writeDraft} from '../server/generate.js';
+import {gemini,generate,regenerateDraft,writeDraft} from '../server/generate.js';
 import {researchTopic,verifyFreeResearchUsage,resolveCitations} from '../server/research.js';
 import nodemailer from 'nodemailer';
 
@@ -165,7 +165,7 @@ test('only the confirmed owner Google identity can use private APIs',async()=>{
   assert.ok(await authorize(req,mock({email:'ajsengundar@gmail.com',email_confirmed_at:'now',identities:[{provider:'google'}]})));
 });
 test('publishing and generation cannot be triggered by email-link GETs',()=>{
-  for(const action of ['publish','email','save','generate','unpublish','schedule'])assert.equal(methodAllowed(action,'GET'),false);
+  for(const action of ['publish','email','save','generate','regenerate','unpublish','schedule'])assert.equal(methodAllowed(action,'GET'),false);
   assert.equal(methodAllowed('publish','POST'),true);
 });
 test('unsafe links, non-image bytes and private image hosts are rejected',()=>{
@@ -178,14 +178,60 @@ test('unsafe links, non-image bytes and private image hosts are rejected',()=>{
 });
 test('review email escapes HTML and links to the exact private revision',()=>{
   process.env.SITE_URL='https://portfolio.example';
-  const message=reviewMessage({id:'draft-id',revision:3,content:{title:'<script>bad</script>',category:'Anime',markdown:'<img onerror=alert(1)>',sources:[],images:[]}});
+  const message=reviewMessage({id:'draft-id',revision:3,content:{title:'<script>bad</script>',excerpt:'Edited excerpt',category:'Anime',markdown:'## A section\n\n**Styled** [1](https://example.com)\n\n<img onerror=alert(1)>\n\n![Remote](https://example.com/image.png)',sources:[],images:[]}});
   assert.ok(!message.html.includes('<script>'));
+  assert.ok(message.html.includes('Edited excerpt'));
+  assert.ok(message.html.includes('<h2>A section</h2>'));
+  assert.ok(message.html.includes('<strong>Styled</strong>'));
+  assert.ok(!message.html.includes('onerror'));
+  assert.ok(!message.html.includes('image.png'));
   assert.ok(message.text.includes('revision=3'));
   assert.ok(message.text.includes('revision=3&approve=1'));
   assert.ok(message.html.includes('revision=3&amp;approve=1'));
   assert.ok(message.html.includes('Approve &amp; publish v3'));
   assert.ok(!message.html.includes('action=publish'));
   assert.ok(message.text.includes('Opening this link does not publish'));
+});
+
+test('regeneration uses current edits and source extracts, then emails the new revision',async t=>{
+  generationEnv(t);
+  const sources=[{title:'New source',url:'https://example.com/new'},{title:'Pasted source',url:'https://example.org/pasted'}];
+  const edited={title:'Original title',excerpt:'Edited excerpt',category:'Technology',markdown:'Edited body',sources,images:[]};
+  const draft={id:'draft',revision:4,topic_id:null,content:{...edited,excerpt:'Old excerpt'}};
+  const requests=[];
+  const calls=[];
+  let saved;
+  const fetchMock=t.mock.method(globalThis,'fetch',async(url,options)=>{
+    const body=options.body&&JSON.parse(options.body);
+    requests.push({url,body});
+    return {ok:true,json:async()=>url.endsWith('/usage')?freeUsage:url.endsWith('/extract')
+      ?{results:[{url:sources[0].url,raw_content:evidence[0].content}]}
+      :{candidates:[{finishReason:'STOP',content:{parts:[{text:JSON.stringify({title:'Rewritten',excerpt:'Model excerpt',markdown:fullDraftBody})}]}}]}};
+  });
+  t.mock.method(nodemailer,'createTransport',()=>({sendMail:async(message)=>{
+    assert.ok(message.html.includes('revision=5&amp;approve=1'));
+    return {accepted:['ajsengundar@gmail.com']};
+  }}));
+  const db={rpc:async(name,args)=>{
+    calls.push(name);
+    if(name==='blog_save_draft'){
+      assert.equal(args.p_revision,4);
+      assert.equal(args.p_content.excerpt,'Edited excerpt');
+      assert.deepEqual(args.p_content.sources,sources);
+      assert.ok(!JSON.stringify(args.p_content).includes('Private extract'));
+      saved={...draft,revision:5,content:args.p_content,email_token:'token'};
+    }
+    return {data:saved,error:null};
+  }};
+  assert.deepEqual(await regenerateDraft(db,draft,edited,['','Private extract']),{draftId:'draft',emailed:true});
+  assert.deepEqual(requests[1].body.urls,[sources[0].url]);
+  const prompt=requests[2].body.contents[0].parts[0].text;
+  assert.ok(prompt.includes('Edited body'));
+  assert.ok(prompt.includes('Private extract'));
+  assert.deepEqual(calls,['blog_save_draft','blog_begin_email','blog_complete_email']);
+  fetchMock.mock.mockImplementation(async url=>({ok:true,json:async()=>url.endsWith('/usage')?freeUsage:{results:[]}}));
+  await assert.rejects(()=>regenerateDraft(db,draft,edited,['','Private extract']),/Paste an extract/);
+  assert.equal(calls.length,3);
 });
 
 test('database workflow enforces revisions, email gates, private data, and job locks',async t=>{
